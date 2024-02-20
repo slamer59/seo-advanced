@@ -92,7 +92,7 @@ export default async function Page({ params }) {
                         position={gscKPIs[0].position}
                     /> :
                     (
-                        <p>Il n'y a pas de données SEO pour cette page</p>
+                        <p className="w-96 h-16 items-center border border-spacing-2 rounded-sm">Il n'y a pas de données SEO pour cette page</p>
                     )}
             </div>
             <div className="flex items-start justify-center w-full h-full rounded-md m-4">
