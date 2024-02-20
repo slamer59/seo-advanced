@@ -11,10 +11,60 @@ datasource db {
 }
 
 model Post {
-    id        Int      @id @default(autoincrement())
-    name      String
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+    id                   Int                    @id @default(autoincrement())
+    name                 String?
+    createdAt            DateTime               @default(now())
+    updatedAt            DateTime               @updatedAt
+    SearchConsoleData    SearchConsoleData[]
+    SearchConsoleRequest SearchConsoleRequest[]
+    SearchConsoleKPIs    SearchConsoleKPIs[]
+    url                  Url?
 
     @@index([name])
+}
+
+model Url {
+    id        Int      @id @default(autoincrement())
+    url       String
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    post      Post     @relation(fields: [postId], references: [id])
+    postId    Int      @unique
+}
+
+model SearchConsoleData {
+    id          Int      @id @default(autoincrement())
+    post        Post     @relation(fields: [postId], references: [id])
+    postId      Int
+    keyword     String
+    clicks      Int
+    impressions Int
+    position    Float
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
+}
+
+model SearchConsoleRequest {
+    id        Int                 @id @default(autoincrement())
+    post      Post                @relation(fields: [postId], references: [id])
+    postId    Int
+    kpis      SearchConsoleKPIs[]
+    startDate DateTime
+    endDate   DateTime
+    createdAt DateTime            @default(now())
+    updatedAt DateTime            @updatedAt
+}
+
+model SearchConsoleKPIs {
+    id                     Int                   @id @default(autoincrement())
+    post                   Post                  @relation(fields: [postId], references: [id])
+    postId                 Int
+    clicks                 Int
+    impressions            Int
+    position               Float
+    ctr                    Float
+    createdAt              DateTime              @default(now())
+    updatedAt              DateTime              @updatedAt
+    SearchConsoleRequest   SearchConsoleRequest? @relation(fields: [searchConsoleRequestId], references: [id])
+    searchConsoleRequestId Int?
 }
