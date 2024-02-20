@@ -1,6 +1,7 @@
 // @ts-nocheck
 
 // import { STOREFRONT_NAME } from "@/lib/const";
+
 import getBase64 from 'lib/getLocalBase64';
 import {
     getBlocks,
@@ -13,6 +14,7 @@ import { SEOKPICard } from '@/components/seokpicard';
 import { getGSCKPIsBySlug } from "lib/queries/gsc";
 import { Article } from './Article';
 import { ArticleHeader } from './ArticleHeader';
+import { ArticleLinked } from './ArticleLinked';
 
 export default async function Page({ params }) {
     const page = await getPageFromSlug(params?.slug);
@@ -81,16 +83,28 @@ export default async function Page({ params }) {
                 lastpub={lastpub}
                 lastmod={lastmod}
             />
-
-            <div className="flex flex-col items-center justify-center w-full h-full rounded-md m-4">
-                <SEOKPICard
-                    impressions={gscKPIs[0].impressions}
-                    clicks={gscKPIs[0].clicks}
-                    ctr={gscKPIs[0].ctr}
-                    position={gscKPIs[0].position}
+            <div className="flex items-center justify-center w-full h-full rounded-md m-4">
+                {gscKPIs && gscKPIs.length > 0 ?
+                    <SEOKPICard
+                        impressions={gscKPIs[0].impressions}
+                        clicks={gscKPIs[0].clicks}
+                        ctr={gscKPIs[0].ctr}
+                        position={gscKPIs[0].position}
+                    /> :
+                    (
+                        <p>Il n'y a pas de données SEO pour cette page</p>
+                    )}
+            </div>
+            <div className="flex items-start justify-center w-full h-full rounded-md m-4">
+                <Article blocks={blocks}
+                    className="lg:basis-2/3"
+                />
+                <ArticleLinked
+                    siblingPages={siblingPages}
+                    className="lg:basis-1/3"
                 />
             </div>
-            {Article(heroImage, alt, bluredHeroDataUrl, page, lastpub, lastmod, blocks, siblingPages)}
+
         </>
     );
 }
