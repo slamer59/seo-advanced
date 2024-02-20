@@ -4,7 +4,8 @@
  */
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 
-export function SEOKPICard() {
+export function SEOKPICard({ searchvolume, clicks, impressions, position, ctr }) {
+
   return (
     <Card className="grid gap-4 p-4 md:grid-cols-2 lg:gap-8 lg:p-6">
       <CardHeader className="flex flex-col">
@@ -12,26 +13,26 @@ export function SEOKPICard() {
         <CardDescription>The average number of searches for this keyword per month</CardDescription>
         <div className="flex items-center gap-2 mt-auto">
           <ArrowUpIcon className="h-6 w-6 text-green-500" />
-          <span className="text-4xl font-bold tracking-tighter">1.2K</span>
+          <span className="text-4xl font-bold tracking-tighter">{searchvolume}</span>
           <ArrowUpIcon className="h-6 w-6 text-green-500" />
         </div>
       </CardHeader>
       <CardContent className="grid gap-4">
         <div className="flex items-center gap-4">
           <CardDescription>Impressions</CardDescription>
-          <CardTitle>12,345</CardTitle>
+          <CardTitle>{impressions}</CardTitle>
         </div>
         <div className="flex items-center gap-4">
           <CardDescription>Clicks</CardDescription>
-          <CardTitle>1,234</CardTitle>
+          <CardTitle>{clicks}</CardTitle>
         </div>
         <div className="flex items-center gap-4">
           <CardDescription>Click-Through Rate (CTR)</CardDescription>
-          <CardTitle>10%</CardTitle>
+          <CardTitle>{ctr}%</CardTitle>
         </div>
         <div className="flex items-center gap-4">
           <CardDescription>Position</CardDescription>
-          <CardTitle>5.2</CardTitle>
+          <CardTitle>{position}</CardTitle>
         </div>
       </CardContent>
     </Card>

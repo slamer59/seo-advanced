@@ -10,14 +10,16 @@ import {
 import { urlToAltText } from 'lib/util';
 // import Hero from "@/components/Notion/Hero";
 import { SEOKPICard } from '@/components/seokpicard';
+import { getGSCKPIsBySlug } from "lib/queries/gsc";
 import { Article } from './Article';
 import { ArticleHeader } from './ArticleHeader';
-
 
 export default async function Page({ params }) {
     const page = await getPageFromSlug(params?.slug);
     const blocks = await getBlocks(page?.id);
     const siblingPages = await getSibblingsPublished(page);
+
+    const kpis = await getGSCKPIsBySlug(params?.slug);
 
     if (!page || !blocks) {
         return <div />;
