@@ -11,14 +11,14 @@ datasource db {
 }
 
 model Post {
-    id                   Int                    @id @default(autoincrement())
-    name                 String?
-    createdAt            DateTime               @default(now())
-    updatedAt            DateTime               @updatedAt
-    SearchConsoleData    SearchConsoleData[]
-    SearchConsoleRequest SearchConsoleRequest[]
-    SearchConsoleKPIs    SearchConsoleKPIs[]
-    url                  Url?
+    id         Int                    @id @default(autoincrement())
+    name       String?
+    createdAt  DateTime               @default(now())
+    updatedAt  DateTime               @updatedAt
+    gscData    SearchConsoleData[]
+    gscRequest SearchConsoleRequest[]
+    gscKPIs    SearchConsoleKPIs[]
+    url        Url?
 
     @@index([name])
 }
@@ -42,6 +42,8 @@ model SearchConsoleData {
     position    Float
     createdAt   DateTime @default(now())
     updatedAt   DateTime @updatedAt
+
+    @@map("gsc_data")
 }
 
 model SearchConsoleRequest {
@@ -53,6 +55,8 @@ model SearchConsoleRequest {
     endDate   DateTime
     createdAt DateTime            @default(now())
     updatedAt DateTime            @updatedAt
+
+    @@map("gsc_request")
 }
 
 model SearchConsoleKPIs {
@@ -65,6 +69,8 @@ model SearchConsoleKPIs {
     ctr                    Float
     createdAt              DateTime              @default(now())
     updatedAt              DateTime              @updatedAt
-    SearchConsoleRequest   SearchConsoleRequest? @relation(fields: [searchConsoleRequestId], references: [id])
+    gsc_request            SearchConsoleRequest? @relation(fields: [searchConsoleRequestId], references: [id])
     searchConsoleRequestId Int?
+
+    @@map("gsc_kpis")
 }

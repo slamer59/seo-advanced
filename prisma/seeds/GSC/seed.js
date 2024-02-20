@@ -23,7 +23,7 @@ async function main() {
     .pipe(csv())
     .on('data', async (row) => {
       const postUrl = row['Pages les plus populaires'] 
-      const post = await prisma.post.findFirst({
+      let post = await prisma.post.findFirst({
         where: { url:  {url: postUrl } } 
       });
       
@@ -44,13 +44,9 @@ async function main() {
         })
       }
       
-      // // Find or create the Post
-      // const post = await prisma.post.upsert({
-      //   where: { urlId: url.id },
-      //   update: {},
-      //   create: { url: { connect: { id: url.id } } },
-      // });
-
+      post = await prisma.post.findFirst({
+        where: { url:  {url: postUrl } } 
+      });
       // Create the SearchConsoleKPIs
       await prisma.searchConsoleKPIs.create({
         data: {

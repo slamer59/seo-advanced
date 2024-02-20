@@ -5,11 +5,20 @@ import prisma from "./prisma";
 export async function getGSCKPIsBySlug(slug: string) {
 
     try {
-        const data = await prisma.post.findUnique(
-            { where: { url: { contains: slug } } }
-        )
-        console.log("🚀 ~ getGSCKPIsBySlug ~ data:", data)
-        return data;
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+        const data = await (prisma.post.findMany({
+            where: {
+                url: {
+                    url: {
+                        contains: slug
+                    }
+                }
+            },
+            include: {
+                gscKPIs: true
+            }
+        }) as any[]);
+        return data[0];
     } catch (e) {
         console.error(e);
     }

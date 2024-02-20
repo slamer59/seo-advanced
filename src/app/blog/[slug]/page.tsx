@@ -19,7 +19,7 @@ export default async function Page({ params }) {
     const blocks = await getBlocks(page?.id);
     const siblingPages = await getSibblingsPublished(page);
 
-    const kpis = await getGSCKPIsBySlug(params?.slug);
+    const { gscKPIs } = await getGSCKPIsBySlug(params?.slug);
 
     if (!page || !blocks) {
         return <div />;
@@ -83,7 +83,12 @@ export default async function Page({ params }) {
             />
 
             <div className="flex flex-col items-center justify-center w-full h-full rounded-md m-4">
-                <SEOKPICard />
+                <SEOKPICard
+                    impressions={gscKPIs[0].impressions}
+                    clicks={gscKPIs[0].clicks}
+                    ctr={gscKPIs[0].ctr}
+                    position={gscKPIs[0].position}
+                />
             </div>
             {Article(heroImage, alt, bluredHeroDataUrl, page, lastpub, lastmod, blocks, siblingPages)}
         </>
