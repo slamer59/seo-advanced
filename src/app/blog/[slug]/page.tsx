@@ -21,7 +21,7 @@ export default async function Page({ params }) {
     const blocks = await getBlocks(page?.id);
     const siblingPages = await getSibblingsPublished(page);
 
-    const { gscKPIs } = await getGSCKPIsBySlug(params?.slug);
+    const gscKPIs = await getGSCKPIsBySlug(params?.slug);
 
     if (!page || !blocks) {
         return <div />;

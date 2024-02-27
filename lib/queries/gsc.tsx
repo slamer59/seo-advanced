@@ -18,9 +18,7 @@ export async function getGSCKPIsBySlug(slug: string) {
                 gscKPIs: true
             }
         }) as any[]);
-        return data[0] || {
-            gscKPIs: undefined
-        }
+        return data[0].gscKPIs || undefined
     } catch (e) {
         console.error(e);
     }

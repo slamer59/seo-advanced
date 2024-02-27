@@ -5,22 +5,49 @@ generator client {
     provider = "prisma-client-js"
 }
 
+generator dbml {
+    provider = "prisma-dbml-generator"
+}
+
 datasource db {
     provider = "postgresql"
     url      = env("DATABASE_URL")
 }
 
 model Post {
-    id         Int                    @id @default(autoincrement())
-    name       String?
-    createdAt  DateTime               @default(now())
-    updatedAt  DateTime               @updatedAt
-    gscData    SearchConsoleData[]
-    gscRequest SearchConsoleRequest[]
-    gscKPIs    SearchConsoleKPIs[]
-    url        Url?
+    id                Int       @id @default(autoincrement())
+    name              String?
+    createdAt         DateTime  @default(now())
+    updatedAt         DateTime  @updatedAt
+    targetedKeyword   Keyword?  @relation("targetedKeyword", fields: [targetedKeywordId], references: [id])
+    targetedKeywordId Int?      @unique
+    relatedKeywords   Keyword[] @relation("relatedKeywords")
+    url               Url?
 
     @@index([name])
+}
+
+model Keyword {
+    id        Int           @id @default(autoincrement())
+    keyword   String
+    createdAt DateTime      @default(now())
+    updatedAt DateTime      @updatedAt
+    kpis      KeywordKPIs[]
+    post      Post?         @relation("targetedKeyword")
+    posts     Post[]        @relation("relatedKeywords")
+}
+
+model KeywordKPIs {
+    id         Int      @id @default(autoincrement())
+    keyword    Keyword  @relation(fields: [keywordId], references: [id])
+    keywordId  Int
+    intent     String?
+    volume     Int?
+    difficulty Float?
+    cpc        Float?
+    SERP       String[]
+    createdAt  DateTime @default(now())
+    updatedAt  DateTime @updatedAt
 }
 
 model Url {
@@ -34,8 +61,8 @@ model Url {
 
 model SearchConsoleData {
     id          Int      @id @default(autoincrement())
-    post        Post     @relation(fields: [postId], references: [id])
-    postId      Int
+    // post        Post     @relation(fields: [postId], references: [id])
+    // postId      Int
     keyword     String
     clicks      Int
     impressions Int
@@ -48,8 +75,8 @@ model SearchConsoleData {
 
 model SearchConsoleRequest {
     id        Int                 @id @default(autoincrement())
-    post      Post                @relation(fields: [postId], references: [id])
-    postId    Int
+    // post      Post                @relation(fields: [postId], references: [id])
+    // postId    Int
     kpis      SearchConsoleKPIs[]
     startDate DateTime
     endDate   DateTime
@@ -61,8 +88,8 @@ model SearchConsoleRequest {
 
 model SearchConsoleKPIs {
     id                     Int                   @id @default(autoincrement())
-    post                   Post                  @relation(fields: [postId], references: [id])
-    postId                 Int
+    // post                   Post                  @relation(fields: [postId], references: [id])
+    // postId                 Int
     clicks                 Int
     impressions            Int
     position               Float
@@ -74,3 +101,72 @@ model SearchConsoleKPIs {
 
     @@map("gsc_kpis")
 }
+
+// DataForSEO Links
+// model DataforSEOTask {
+//     id            String                 @id
+//     version       String
+//     statusCode    Int
+//     statusMessage String
+//     time          String
+//     cost          Float
+//     tasksCount    Int
+//     tasksError    Int
+//     taskDetails   DataforSEOTaskDetail[]
+// }
+
+// model DataforSEOTaskDetail {
+//     id               String             @id
+//     statusCode       Int
+//     statusMessage    String
+//     time             String
+//     cost             Float
+//     resultCount      Int
+//     path             String[]
+//     data             Json
+//     result           DataforSEOResult[]
+//     DataforSEOTask   DataforSEOTask?    @relation(fields: [dataforSEOTaskId], references: [id])
+//     dataforSEOTaskId String?
+// }
+
+// model DataforSEOResult {
+//     crawlProgress           String
+//     crawlStatus             DataforSEOCrawlStatus @relation(fields: [dataforSEOCrawlStatusId], references: [id])
+//     totalItemsCount         Int
+//     itemsCount              Int
+//     items                   DataforSEOItem[]
+//     DataforSEOTaskDetail    DataforSEOTaskDetail? @relation(fields: [dataforSEOTaskDetailId], references: [id])
+//     dataforSEOTaskDetailId  String?
+//     dataforSEOCrawlStatusId String
+// }
+
+// model DataforSEOCrawlStatus {
+//     id               String             @id
+//     maxCrawlPages    Int
+//     pagesInQueue     Int
+//     pagesCrawled     Int
+//     DataforSEOResult DataforSEOResult[]
+// }
+
+// model DataforSEOItem {
+//     id                     String           @id
+//     type                   String
+//     domainFrom             String
+//     domainTo               String
+//     pageFrom               String
+//     pageTo                 String
+//     linkFrom               String
+//     linkTo                 String
+//     linkAttribute          String?
+//     dofollow               Boolean
+//     pageFromScheme         String
+//     pageToScheme           String
+//     direction              String
+//     isBroken               Boolean
+//     text                   String?
+//     imageAlt               String?
+//     imageSrc               String?
+//     isLinkRelationConflict Boolean
+//     pageToStatusCode       Int?
+//     DataforSEOResult       DataforSEOResult @relation(fields: [], references: [])
+// }
