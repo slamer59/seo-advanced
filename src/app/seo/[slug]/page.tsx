@@ -1,6 +1,8 @@
 // @ts-nocheck
 // import { STOREFRONT_NAME } from "@/lib/const";
+import SemanticPerfoChart from "@/components/semantic-perfo-chart";
 import SERPComponent from "@/components/top10-serp-table";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 // import { PlateEditor } from "@/components/plate-editor";
 
@@ -98,15 +100,14 @@ export default async function Page({ params }) {
             {params.slug}
             < div >
                 <form
-                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                     method="POST"
                     action={createTask}
                 >
                     {/* <label for="target">Who do you want to say it to?</label> */}
                     <input className="hidden" name="target" id="target" value={params.slug} />
-                    <button type="submit">
+                    <Button type="submit">
                         Run task_post
-                    </button>
+                    </Button>
 
                 </form>
                 <div className="bg-white p-8">
@@ -164,18 +165,8 @@ export default async function Page({ params }) {
                         </Card>
                     </div>
 
-                    <div className="border border-red-500 p-4 mb-4">
-                        <h2 className="text-red-500 font-bold text-xl mb-2">Optim</h2>
-                        <div className="flex justify-between">
-                            <div className="border border-red-500 p-2">
-                                <p className="text-red-500">meta desc</p>
-                                <p className="text-red-500">240/157</p>
-                            </div>
-                            <div className="border border-red-500 p-2">
-                                <p className="text-red-500">meta</p>
-                            </div>
-                        </div>
-                    </div>
+                    <SemanticPerfoChart />
+
 
                     <div className="border border-red-500 p-4 mb-4">
                         <h2 className="text-red-500 font-bold text-xl mb-2">Edition</h2>
