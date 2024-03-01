@@ -1,10 +1,10 @@
 // @ts-nocheck
 // import { STOREFRONT_NAME } from "@/lib/const";
+import { PlateEditor } from "@/components/plate-editor";
 import SemanticPerfoChart from "@/components/semantic-perfo-chart";
 import SERPComponent from "@/components/top10-serp-table";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-// import { PlateEditor } from "@/components/plate-editor";
 
 
 export default async function Page({ params }) {
@@ -165,22 +165,13 @@ export default async function Page({ params }) {
                         </Card>
                     </div>
 
+                    <h2 className="text-2xl">Semantic Performance</h2>
                     <SemanticPerfoChart />
+                    <h2 className="text-2xl">Edition</h2>
 
-
-                    <div className="border border-red-500 p-4 mb-4">
-                        <h2 className="text-red-500 font-bold text-xl mb-2">Edition</h2>
-                        {/* <PlateEditor initialValue={initialValue} /> */}
-                        <div className="border border-red-500 p-2">
-                            <p className="text-red-500">Some editor</p>
-                        </div>
-                    </div>
-
-                    <div className="border border-red-500 p-4 mb-4">
-                        <h2 className="text-red-500 font-bold text-xl mb-2">TOP 10 SERP</h2>
-                        <SERPComponent serpData={serpData} />
-
-                    </div>
+                    <PlateEditor initialValue={initialValue} />
+                    <h2 className="text-2xl">TOP 10 SERP</h2>
+                    <SERPComponent serpData={serpData} />
 
                     <div className="border border-red-500 p-4 mb-4">
                         <h2 className="text-red-500 font-bold text-xl mb-2">CopyRank FR</h2>
