@@ -1,14 +1,4 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["github>slamer59/renovate-config"],
-  "packageRules": [
-    {
-      "matchUpdateTypes": ["major"],
-      "groupName": "all major dependencies"
-    },
-    {
-      "matchUpdateTypes": ["minor", "patch"],
-      "groupName": "all non-major dependencies"
-    }
-  ]
+  "extends": ["github>slamer59/renovate-config"]
 }
