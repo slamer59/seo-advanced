@@ -3,9 +3,12 @@
   "extends": ["github>slamer59/renovate-config"],
   "packageRules": [
     {
-      "matchPackagePatterns": ["^@udecode/plate"],
-      "groupName": "udecode plate packages",
-      "separateMajorMinor": false
+      "matchUpdateTypes": ["major"],
+      "groupName": "all major dependencies"
+    },
+    {
+      "matchUpdateTypes": ["minor", "patch"],
+      "groupName": "all non-major dependencies"
     }
   ]
 }
