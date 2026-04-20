@@ -4,7 +4,8 @@
   "packageRules": [
     {
       "matchPackagePatterns": ["^@udecode/plate"],
-      "groupName": "udecode plate packages"
+      "groupName": "udecode plate packages",
+      "separateMajorMinor": false
     }
   ]
 }
