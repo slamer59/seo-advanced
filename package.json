@@ -40,7 +40,7 @@
     "@udecode/plate-autoformat": "^30.5.3",
     "@udecode/plate-basic-marks": "^49.0.0",
     "@udecode/plate-block-quote": "^30.5.3",
-    "@udecode/plate-break": "^30.5.3",
+    "@udecode/plate-break": "^49.0.0",
     "@udecode/plate-caption": "^30.5.3",
     "@udecode/plate-code-block": "^30.7.0",
     "@udecode/plate-combobox": "^30.5.3",
