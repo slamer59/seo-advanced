@@ -1,4 +1,10 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["github>slamer59/renovate-config"]
+  "extends": ["github>slamer59/renovate-config"],
+  "packageRules": [
+    {
+      "matchPackagePatterns": ["^@udecode/plate"],
+      "groupName": "udecode plate packages"
+    }
+  ]
 }
