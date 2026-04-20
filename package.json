@@ -36,7 +36,7 @@
     "@radix-ui/react-tooltip": "^1.0.7",
     "@t3-oss/env-nextjs": "^0.13.0",
     "@udecode/cn": "^52.0.0",
-    "@udecode/plate-alignment": "^30.5.3",
+    "@udecode/plate-alignment": "^49.0.0",
     "@udecode/plate-autoformat": "^30.5.3",
     "@udecode/plate-basic-marks": "^49.0.0",
     "@udecode/plate-block-quote": "^30.5.3",
